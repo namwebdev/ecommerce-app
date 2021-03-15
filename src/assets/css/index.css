@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './components/button.css';
 
 body {
   margin: 0;
@@ -11,11 +12,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 .container {
-  @apply max-w-2xl pt-16 mx-auto;
+  @apply max-w-4xl pt-16 mx-auto;
 }
