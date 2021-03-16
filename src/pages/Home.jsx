@@ -7,22 +7,19 @@ const HomePage = ({ handleAddToCart }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    initPage()
+    fetchProducts()
   }, [])
 
   // method
-  const initPage = () => {
+  const fetchProducts = async () => {
     try {
-      fetchProducts()
+      const { data } = await commerce.products.list()
+      setProducts(data || [])
     } catch (e) {
       console.log(e)
     } finally {
       setLoading(false)
     }
-  }
-  const fetchProducts = async () => {
-    const { data } = await commerce.products.list()
-    setProducts(data || [])
   }
 
   return (
