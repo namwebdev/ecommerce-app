@@ -59,17 +59,8 @@ function App() {
                 handleEmptyCart={onEmptyCart}
               />
             </Route>
-            <Route exact path="/cart">
-              <Cart
-                cart={cart}
-                loading={loading}
-                handleUpdateQuantity={onUpdateProductQuantityInCart}
-                handleRemoveProduct={onRemoveProductQuantityInCart}
-                handleEmptyCart={onEmptyCart}
-              />
-            </Route>
             <Route>
-              <Checkout />
+              {!loading && <Checkout cart={cart} loading={loading} />}
             </Route>
             <Route path="*">404</Route>
           </Switch>
