@@ -7,3 +7,6 @@
 .btn-danger {
   @apply bg-red-400 text-white hover:bg-red-600;
 }
+.btn-danger {
+  @apply bg-gray-300 text-white hover:bg-gray-400;
+}

@@ -12,6 +12,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1,
+h2 {
+  @apply font-bold;
+}
+
 .container {
   @apply max-w-4xl pt-16 mx-auto;
 }

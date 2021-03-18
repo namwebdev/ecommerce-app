@@ -59,8 +59,8 @@ function App() {
                 handleEmptyCart={onEmptyCart}
               />
             </Route>
-            <Route>
-              {!loading && <Checkout cart={cart} loading={loading} />}
+            <Route path="/checkout">
+              {!loading && <Checkout cart={cart} />}
             </Route>
             <Route path="*">404</Route>
           </Switch>

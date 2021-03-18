@@ -1,13 +1,24 @@
 import { useState, useEffect } from 'react'
-import CheckoutAddressForm from '../components/Checkout/AddressForm'
+import { useLocation, useHistory } from 'react-router-dom'
+import AddressForm from '../components/Checkout/AddressForm'
+import PaymentForm from '../components/Checkout/PaymentForm'
 import { commerce } from '../lib/ecommerce'
+const queryString = require('query-string')
 
-const CheckoutPage = ({ cart, loading }) => {
+const CheckoutPage = ({ cart }) => {
   const [checkoutToken, setCheckoutToken] = useState(null)
+  const [step, setStep] = useState('')
+  const [shippingData, setshippingData] = useState({})
+  const { search } = useLocation()
+  const history = useHistory()
 
   useEffect(() => {
     getTokenHandler()
   }, [])
+  useEffect(() => {
+    if (search) setStep(queryString.parse(search)?.q)
+  }, [search])
+
   const getTokenHandler = async () => {
     if (cart) {
       const token = await commerce.checkout.generateToken(cart.id || '', {
@@ -16,21 +27,24 @@ const CheckoutPage = ({ cart, loading }) => {
       setCheckoutToken(token || {})
     }
   }
+  const nextStep = (data) => {
+    if (step === 'shipping-address') {
+      setshippingData(data || {})
+      history.push('/checkout?q=payment')
+    }
+  }
+
   return (
     <div className="shadow-md w-full px-6 py-4">
       <h1 className="text-3xl font-extrabold">Checkout</h1>
-      {/* <div className="flex items-center justify-between">
-        <div className="">
-          <span>1</span>
-          <span>Shipping address</span>
-        </div>
-        <div className="divide-y divide-light-blue-400 w-60 h-0.5 bg-gray-500"></div>
+      {step && (
         <div>
-          <span>2</span>
-          <span>Payment details</span>
+          {step === 'shipping-address' && checkoutToken && (
+            <AddressForm checkoutToken={checkoutToken} handleNext={nextStep} />
+          )}
+          {step === 'payment' && <PaymentForm />}
         </div>
-      </div> */}
-      {checkoutToken && <CheckoutAddressForm checkoutToken={checkoutToken} />}
+      )}
     </div>
   )
 }

@@ -52,7 +52,10 @@ const CartPage = ({
                   >
                     Empty Cart
                   </button>
-                  <Link to="/checkout" className="btn btn-primary text-sm ml-1">
+                  <Link
+                    to="/checkout?q=shipping-address"
+                    className="btn btn-primary text-sm ml-1"
+                  >
                     Checkout
                   </Link>
                 </div>
