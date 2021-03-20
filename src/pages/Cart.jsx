@@ -19,7 +19,6 @@ const CartPage = ({
           {!products.length && (
             <div className="text-center pt-8">
               <span className="text-xl">
-                {' '}
                 You don't have any product in cart
               </span>
               <div className="mt-5">

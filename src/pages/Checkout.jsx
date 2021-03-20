@@ -5,7 +5,7 @@ import PaymentForm from '../components/Checkout/PaymentForm'
 import { commerce } from '../lib/ecommerce'
 const queryString = require('query-string')
 
-const CheckoutPage = ({ cart }) => {
+const CheckoutPage = ({ cart, handleCheckout, error }) => {
   const [checkoutToken, setCheckoutToken] = useState(null)
   const [step, setStep] = useState('')
   const [shippingData, setshippingData] = useState({})
@@ -42,7 +42,13 @@ const CheckoutPage = ({ cart }) => {
           {step === 'shipping-address' && checkoutToken && (
             <AddressForm checkoutToken={checkoutToken} handleNext={nextStep} />
           )}
-          {step === 'payment' && <PaymentForm />}
+          {step === 'payment' && (
+            <PaymentForm
+              checkoutToken={checkoutToken}
+              shippingData={shippingData}
+              handleCheckout={handleCheckout}
+            />
+          )}
         </div>
       )}
     </div>
